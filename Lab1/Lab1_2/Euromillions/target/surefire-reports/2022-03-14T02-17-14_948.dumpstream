@@ -1,0 +1,51 @@
+# Created at 2022-03-14T02:17:16.099
+Exception in thread "main" java.lang.reflect.InvocationTargetException
+
+# Created at 2022-03-14T02:17:16.102
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2022-03-14T02:17:16.103
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2022-03-14T02:17:16.104
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2022-03-14T02:17:16.104
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+
+# Created at 2022-03-14T02:17:16.105
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:513)
+
+# Created at 2022-03-14T02:17:16.106
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:525)
+
+# Created at 2022-03-14T02:17:16.106
+Caused by: java.lang.RuntimeException: Class java/util/UUID could not be instrumented.
+
+# Created at 2022-03-14T02:17:16.107
+	at org.jacoco.agent.rt.internal_6da5971.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:140)
+
+# Created at 2022-03-14T02:17:16.108
+	at org.jacoco.agent.rt.internal_6da5971.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:101)
+
+# Created at 2022-03-14T02:17:16.109
+	at org.jacoco.agent.rt.internal_6da5971.PreMain.createRuntime(PreMain.java:55)
+
+# Created at 2022-03-14T02:17:16.109
+	at org.jacoco.agent.rt.internal_6da5971.PreMain.premain(PreMain.java:47)
+
+# Created at 2022-03-14T02:17:16.110
+	... 6 more
+
+# Created at 2022-03-14T02:17:16.111
+Caused by: java.lang.NoSuchFieldException: $jacocoAccess
+
+# Created at 2022-03-14T02:17:16.112
+	at java.base/java.lang.Class.getField(Class.java:1999)
+
+# Created at 2022-03-14T02:17:16.113
+	at org.jacoco.agent.rt.internal_6da5971.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:138)
+
+# Created at 2022-03-14T02:17:16.113
+	... 9 more
+
