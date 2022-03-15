@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * @author ico0
@@ -91,17 +92,39 @@ public class SetOfNaturalsTest {
         assertTrue(setA.contains(5));
     }
 
-    /*
     @Test
     public void testIterator() {
 
         int[] elems = new int[]{10, 20, 30};
         setA = SetOfNaturals.fromArray(elems);
 
-        Iterator<Integer> it = new ArrayList<>(
-                Arrays.asList(10, 20, 30)).iterator();
+        Iterator<Integer> it = setA.iterator();
+
+        int i = 0; int el, el2;
+
+        while (it.hasNext()) {
+
+            el = it.next();
+            el2 = -1;
+
+            if (i < elems.length)
+                el2 = elems[i];
+
+            assertEquals(el2, el);
+            i += 1;
+        }
     }
-    */
+
+    @Test
+    public void TestHashCode() {
+
+        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(10, 20, 30, 40, 50, 60));
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(array);
+
+        int result = setB.hashCode();
+        assertEquals(hash, result);
+    }
 
     @Test
     public void testIntersectForNoIntersection() {
