@@ -36,19 +36,17 @@ If no bean of the same type is defined, a new one will be added. This annotation
 
 d) What is the role of the file “application-integration test.properties”? In which conditions will it be used?
 
-As a general best practice, we should externalize configuration values for our applications. Besides overriding these properties for different stages, we can use the same technique when testing our applications to, for example, connect to a mocked external system.
-
-It acts like the regular application.properties file, but instead of being used by the production version of the application it will be used by the test classes. This allow us to change the database system that will be used in tests and create a database only for tests, for example.
+As a general best practice, we should externalize configuration values for our applications. Besides overriding these properties for different stages, we can use the same technique when testing our applications to, for example, connect to a mocked external system. By overriding “application-integration test.properties”, we can set up different databases just for tests, separate from the production databases.
 
 e) The sample project demonstrates three test strategies to assess an API (C, D and E) developed with SpringBoot. Which are the main/key differences?
 
-C - O ambiente carregado é mais reduzido
+C - Run the tests in a simplified and light environment, simulating the behavior of an application server, by using @WebMvcTestmode. 
+@MockMvc provides support for Spring MVC testing. It encapsulates all web application beans and makes them available for testing, providing an entry point to server-side testing.
+The repository component isn't involve (by mocking the dependencies on the service with @MockBean).
 
-D - Carregar um ambiente de teste MVC (MockMvc), permite interagir diretamente com o ???
-Deployment para um ambiente especial de testes
+D - Start the full web context with @SpringBootTest (with Web Environment enabled). 
+The @SpringBootTest annotation tells Spring Boot to look for a main configuration class (one with @SpringBootApplication, for instance) and use that to start a Spring application context. This is an integration test in which several components participate. However, no API client is involved (we use MockMvc). 
 
-E - Deployment no contexto de testes
-Ativar o servidor
-TestRestTemplate, não acede ao mvc
-Invoca endpoints rest
+E - Similar to D; however, instead of assessing a convenient servletentry point for tests, uses an API client (so request and response un/marshaling will be involved).
+Instead of using MockMvc, we use TestRestTemplate to invoke rest endpoints. It's similar to deployment but in the context of tests.
 

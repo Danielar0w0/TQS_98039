@@ -1,4 +1,4 @@
-package pt.ua.deti.tqs.cars_service;
+package pt.ua.deti.tqs.cars_service.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class CarController {
     }
 
     @PostMapping("/cars")
-    ResponseEntity<Car> createCar(Car car) {
+    ResponseEntity<Car> createCar(@RequestBody Car car) {
         Car saved = carManagerService.save(car);
         return ResponseEntity.accepted().body(saved);
     }
@@ -31,8 +31,8 @@ public class CarController {
     }
 
     @GetMapping("/cars/{carId}")
-    ResponseEntity<Optional<Car>> getCarById(@PathVariable(value="carId") Long id) {
-        Optional<Car> car = carManagerService.getCarDetails(id);
+    ResponseEntity<Car> getCarById(@PathVariable(value="carId") Long id) {
+        Car car = carManagerService.getCarDetails(id);
         return ResponseEntity.ok().body(car);
     }
 }

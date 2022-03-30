@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CarManagerServiceTest {
 
-    @Mock
+    @Mock(lenient = true)
     private CarRepository repository;
 
     @InjectMocks
@@ -42,17 +42,38 @@ class CarManagerServiceTest {
 
         List<Car> allCars = Arrays.asList(car1, car2, car3);
 
-        when(repository.findByCarId(20L)).thenReturn(car1);
-        when(repository.findByCarId(42L)).thenReturn(car2);
-        when(repository.findByCarId(5L)).thenReturn(car3);
+        when(repository.save(car1)).thenReturn(car1);
+        when(repository.save(car2)).thenReturn(car2);
+        when(repository.save(car3)).thenReturn(car3);
 
-        Mockito.when(repository.findAll()).thenReturn(allCars);
-        when(repository.findById(-99L)).thenReturn(Optional.empty());
+        when(repository.findByCarId(car1.getCarId())).thenReturn(car1);
+        when(repository.findByCarId(car2.getCarId())).thenReturn(car2);
+        when(repository.findByCarId(car3.getCarId())).thenReturn(car3);
+        when(repository.findAll()).thenReturn(allCars);
+
+        // when(repository.findByCarId(-99L)).thenReturn(null);
     }
 
     @Test
     void save() {
 
+        Car car1 = new Car("Nissan", "Micra");
+        car1.setCarId(20L);
+
+        Car car2 = new Car("Ferrari", "Roma");
+        car2.setCarId(42L);
+
+        Car car3 = new Car("Opel", "Manta 400");
+        car3.setCarId(5L);
+
+        List<Car> allCars = Arrays.asList(car1, car2, car3);
+
+        for (Car car: allCars) {
+            Car result = service.save(car);
+            assertThat(result).isNotNull().isEqualTo(car);
+        }
+
+        verify(repository, times(3)).save(Mockito.any());
 
     }
 
@@ -69,7 +90,6 @@ class CarManagerServiceTest {
         car3.setCarId(5L);
 
         List<Car> allCars = service.getAllCars();
-        Mockito.when(repository.findAll()).thenReturn(allCars);
 
         // CarId
         assertThat(allCars).hasSize(3).extracting(Car::getCarId).contains(car1.getCarId(), car2.getCarId(), car3.getCarId());
@@ -85,5 +105,31 @@ class CarManagerServiceTest {
 
     @Test
     void getCarDetails() {
+
+        Car car1 = new Car("Nissan", "Micra");
+        car1.setCarId(20L);
+
+        Car car2 = new Car("Ferrari", "Roma");
+        car2.setCarId(42L);
+
+        Car car3 = new Car("Opel", "Manta 400");
+        car3.setCarId(5L);
+
+        List<Car> allCars = Arrays.asList(car1, car2, car3);
+
+        for (Car car: allCars) {
+            Car result = service.getCarDetails(car.getCarId());
+            assertThat(result).isNotNull().isEqualTo(car);
+        }
+
+        verify(repository, times(3)).findByCarId(Mockito.any());
+    }
+
+    @Test
+    void getCarDetailsNonExistent() {
+        Car result = service.getCarDetails(-99L);
+        assertThat(result).isNull();
+
+        verify(repository, times(1)).findByCarId(-99L);
     }
 }

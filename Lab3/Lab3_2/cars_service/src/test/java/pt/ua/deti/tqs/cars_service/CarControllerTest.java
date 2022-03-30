@@ -9,12 +9,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import pt.ua.deti.tqs.cars_service.controllers.CarController;
 import pt.ua.deti.tqs.cars_service.data.Car;
 import pt.ua.deti.tqs.cars_service.services.CarManagerService;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -76,7 +76,7 @@ class CarControllerTest {
 
         Car car = new Car("Nissan", "Micra");
 
-        when(carManagerService.getCarDetails(Mockito.any())).thenReturn(Optional.of(car));
+        when(carManagerService.getCarDetails(Mockito.any())).thenReturn(car);
 
         mvc.perform(get("/api/cars/0").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
