@@ -60,7 +60,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>LATEST</version>
         </dependency>
-
     </dependencies>
 
     <build>
