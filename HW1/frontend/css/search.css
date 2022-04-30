@@ -1,0 +1,15 @@
+#result {
+    background: white;
+    padding: 3px 5px 5px 5px;
+    max-height: 200px;
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style: none;
+    z-index: 1;
+    width: 18vw;
+}
+
+#result li:hover {
+    background: #eee;
+}

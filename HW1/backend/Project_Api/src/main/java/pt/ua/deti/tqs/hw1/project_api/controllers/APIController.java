@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import pt.ua.deti.tqs.hw1.project_api.models.*;
 import pt.ua.deti.tqs.hw1.project_api.services.RemoteAPIService;
 
-import java.rmi.Remote;
 import java.util.List;
 
 @PropertySource("classpath:application.properties")
@@ -76,5 +75,11 @@ public class APIController {
     public List<News> getAllVaccineNews() throws JsonProcessingException {
         List<News> news = service.getAllVaccineNews();
         return news;
+    }
+
+    @GetMapping("/list")
+    public Country[] getCountriesList() {
+        Country[] countries = service.getCountriesList();
+        return countries;
     }
 }

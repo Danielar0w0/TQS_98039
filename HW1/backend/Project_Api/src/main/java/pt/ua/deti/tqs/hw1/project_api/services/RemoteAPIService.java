@@ -33,7 +33,6 @@ public class RemoteAPIService {
                 return c.getIso();
             }
         }
-
         return null;
     }
 
@@ -63,7 +62,6 @@ public class RemoteAPIService {
             CountryData[] covidData = response.getBody();
             return covidData;
         }
-
         return null;
     }
 
@@ -91,7 +89,6 @@ public class RemoteAPIService {
             RecentData[] covidData = response.getBody();
             return covidData;
         }
-
         return null;
     }
 
@@ -116,8 +113,9 @@ public class RemoteAPIService {
         return objectMap.readValue(jsonNews, List.class);
     }
 
-
-
-
-
+    public Country[] getCountriesList() {
+        ResponseEntity<Country[]> response = restTemplate.getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
+        Country[] countries = response.getBody();
+        return countries;
+    }
 }
