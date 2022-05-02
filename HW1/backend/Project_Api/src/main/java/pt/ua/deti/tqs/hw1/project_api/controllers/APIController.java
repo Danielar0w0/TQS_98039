@@ -3,6 +3,8 @@ package pt.ua.deti.tqs.hw1.project_api.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class APIController {
 
+    private static Logger logger = LoggerFactory.getLogger(APIController.class);
     private RemoteAPIService service;
 
     @Autowired
@@ -30,56 +33,66 @@ public class APIController {
     }
 
     @GetMapping("/world")
-    public CountryData[] getWorldData() {
+    public ResponseEntity<CountryData[]> getWorldData() {
+        logger.info("Called getWorldData()");
         CountryData[] covidData = service.getWorldData();
-        return covidData;
+        return ResponseEntity.ok().body(covidData);
     }
 
     @GetMapping("/countries/all")
-    public CountryData[] getAllCountriesData() {
+    public ResponseEntity<CountryData[]> getAllCountriesData() {
+        logger.info("Called getAllCountriesData()");
         CountryData[] covidData = service.getAllCountriesData();
-        return covidData;
+        return ResponseEntity.ok().body(covidData);
     }
 
     @GetMapping("/countries/{country}")
-    public CountryData[] getCountryData(@PathVariable String country) {
-        CountryData[] covidData = service.getCountryData(country);
-        return covidData;
-    }
-
-    @GetMapping("/states/{country}")
-    public StateData[] getCountryStatesData(@PathVariable String country) {
-        StateData[] covidData = service.getCountryStatesData(country);
-        return covidData;
+    public ResponseEntity<CountryData[]> getCountryData(@PathVariable String country) {
+        logger.info("Called getCountryData()");
+        try {
+            CountryData[] covidData = service.getCountryData(country);
+            return ResponseEntity.ok().body(covidData);
+        } catch (NullPointerException ex) {
+            return ResponseEntity.ok().body(null);
+        }
     }
 
     @GetMapping("/recent/{country}")
-    public RecentData[] getRecentCountryData(@PathVariable String country) {
-        RecentData[] covidData = service.getRecentCountryData(country);
-        return covidData;
+    public ResponseEntity<RecentData[]> getRecentCountryData(@PathVariable String country) {
+        logger.info("Called getRecentCountryData()");
+        try {
+            RecentData[] covidData = service.getRecentCountryData(country);
+            return ResponseEntity.ok().body(covidData);
+        } catch (NullPointerException ex) {
+            return ResponseEntity.ok().body(null);
+        }
     }
 
     @GetMapping("/news/covid")
-    public List<News> getAllCovidNews() throws JsonProcessingException {
+    public ResponseEntity<List<News>> getAllCovidNews() throws JsonProcessingException {
+        logger.info("Called getAllCovidNews()");
         List<News> news = service.getAllCovidNews();
-        return news;
+        return ResponseEntity.ok().body(news);
     }
 
     @GetMapping("/news/health")
-    public List<News> getAllHealthNews() throws JsonProcessingException {
+    public ResponseEntity<List<News>> getAllHealthNews() throws JsonProcessingException {
+        logger.info("Called getAllHealthNews()");
         List<News> news = service.getAllHealthNews();
-        return news;
+        return ResponseEntity.ok().body(news);
     }
 
     @GetMapping("/news/vaccine")
-    public List<News> getAllVaccineNews() throws JsonProcessingException {
+    public ResponseEntity<List<News>> getAllVaccineNews() throws JsonProcessingException {
+        logger.info("Called getAllVaccineNews()");
         List<News> news = service.getAllVaccineNews();
-        return news;
+        return ResponseEntity.ok().body(news);
     }
 
     @GetMapping("/list")
-    public Country[] getCountriesList() {
+    public ResponseEntity<Country[]> getCountriesList() {
+        logger.info("Called getCountriesList()");
         Country[] countries = service.getCountriesList();
-        return countries;
+        return ResponseEntity.ok().body(countries);
     }
 }
