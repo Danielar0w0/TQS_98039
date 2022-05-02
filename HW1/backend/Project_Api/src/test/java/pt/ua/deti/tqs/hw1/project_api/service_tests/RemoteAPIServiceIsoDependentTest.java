@@ -17,6 +17,7 @@ import pt.ua.deti.tqs.hw1.project_api.models.RecentData;
 import pt.ua.deti.tqs.hw1.project_api.services.RemoteAPIService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class RemoteAPIServiceIsoDependentTest {
@@ -76,6 +77,12 @@ public class RemoteAPIServiceIsoDependentTest {
         assertEquals(result, country);
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/country-report-iso-based/Usa/usa", CountryData[].class);
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
+
+        assertEquals(0, service.getCountryData("Random").length);
+
+        // Cache enabled!
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/country-report-iso-based/Usa/usa", CountryData[].class);
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
     }
 
     @Test
@@ -102,6 +109,12 @@ public class RemoteAPIServiceIsoDependentTest {
         RecentData[] result = service.getRecentCountryData(name);
 
         assertEquals(result, country);
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/covid-ovid-data/sixmonth/" + iso.toUpperCase(), RecentData[].class);
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
+
+        assertEquals(0, service.getRecentCountryData("Random").length);
+
+        // Cache enabled!
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/covid-ovid-data/sixmonth/" + iso.toUpperCase(), RecentData[].class);
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
     }

@@ -57,6 +57,10 @@ class RemoteAPIServiceTest {
 
         assertEquals(result, covidData);
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/world", CountryData[].class);
+
+        service.getWorldData();
+        // Cache enabled!
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/world", CountryData[].class);
     }
 
     @Test
@@ -82,6 +86,9 @@ class RemoteAPIServiceTest {
         assertEquals(result, countries);
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/", CountryData[].class);
 
+        service.getAllCountriesData();
+        // Cache enabled!
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/", CountryData[].class);
     }
 
     @Test
@@ -103,6 +110,10 @@ class RemoteAPIServiceTest {
         List<News> result = service.getAllCovidNews();
 
         assertEquals(result, news);
+        Mockito.verify(restTemplate, Mockito.times(1)).getForObject("/news/get-coronavirus-news/0", JSONObject.class);
+
+        service.getAllCovidNews();
+        // Cache enabled!
         Mockito.verify(restTemplate, Mockito.times(1)).getForObject("/news/get-coronavirus-news/0", JSONObject.class);
     }
 
@@ -126,6 +137,10 @@ class RemoteAPIServiceTest {
 
         assertEquals(result, news);
         Mockito.verify(restTemplate, Mockito.times(1)).getForObject("/news/get-health-news/1", JSONObject.class);
+
+        service.getAllHealthNews();
+        // Cache enabled!
+        Mockito.verify(restTemplate, Mockito.times(1)).getForObject("/news/get-health-news/1", JSONObject.class);
     }
 
     @Test
@@ -148,6 +163,10 @@ class RemoteAPIServiceTest {
 
         assertEquals(result, news);
         Mockito.verify(restTemplate, Mockito.times(1)).getForObject("/news/get-vaccine-news/0", JSONObject.class);
+
+        service.getAllVaccineNews();
+        // Cache enabled!
+        Mockito.verify(restTemplate, Mockito.times(1)).getForObject("/news/get-vaccine-news/0", JSONObject.class);
     }
 
     @Test
@@ -163,6 +182,10 @@ class RemoteAPIServiceTest {
         Country[] result = service.getCountriesList();
 
         assertEquals(result, responseCountries);
+        Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
+
+        service.getCountriesList();
+        // Cache enabled!
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
     }
 
