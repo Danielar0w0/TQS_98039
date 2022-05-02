@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'HW1/backend/**'
+      - '.github/workflows/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
