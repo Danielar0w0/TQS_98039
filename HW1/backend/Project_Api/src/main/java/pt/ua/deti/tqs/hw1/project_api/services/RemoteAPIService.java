@@ -166,14 +166,12 @@ public class RemoteAPIService {
             news = (List<News>) cache.getContent();
             logger.info("Used Cache");
         } else {
-            try {
-                JSONObject jsonObject = restTemplate.getForObject("/news/get-coronavirus-news/0", JSONObject.class);
+            JSONObject jsonObject = restTemplate.getForObject("/news/get-coronavirus-news/0", JSONObject.class);
+            if (jsonObject != null) {
                 String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
                 news = objectMap.readValue(jsonNews, List.class);
                 cacheManager.put("getAllCovidNews", news);
                 logger.info("Saved covid news to Cache");
-            } catch (NullPointerException ex) {
-                logger.warn("NullPointerException!");
             }
         }
         return news;
@@ -189,14 +187,12 @@ public class RemoteAPIService {
             news = (List<News>) cache.getContent();
             logger.info("Used Cache");
         } else {
-            try {
-                JSONObject jsonObject = restTemplate.getForObject("/news/get-health-news/1", JSONObject.class);
+            JSONObject jsonObject = restTemplate.getForObject("/news/get-health-news/1", JSONObject.class);
+            if (jsonObject != null) {
                 String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
                 news = objectMap.readValue(jsonNews, List.class);
                 cacheManager.put("getAllHealthNews", news);
                 logger.info("Saved health news to Cache");
-            } catch (NullPointerException ex) {
-                logger.warn("NullPointerException!");
             }
         }
         return news;
@@ -212,15 +208,12 @@ public class RemoteAPIService {
             news = (List<News>) cache.getContent();
             logger.info("Used Cache");
         } else {
-            try {
-                JSONObject jsonObject = restTemplate.getForObject("/news/get-vaccine-news/0", JSONObject.class);
+            JSONObject jsonObject = restTemplate.getForObject("/news/get-vaccine-news/0", JSONObject.class);
+            if (jsonObject != null) {
                 String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
                 news = objectMap.readValue(jsonNews, List.class);
                 cacheManager.put("getAllVaccineNews", news);
                 logger.info("Saved vaccines news to Cache");
-
-            } catch (NullPointerException ex) {
-                logger.warn("NullPointerException!");
             }
         }
         return news;
