@@ -10,7 +10,7 @@ public class CacheObject {
     private Object content;
     private long expiryTime;
 
-    boolean isExpired() {
+    public boolean isExpired() {
         return System.currentTimeMillis() > expiryTime;
     }
 }
