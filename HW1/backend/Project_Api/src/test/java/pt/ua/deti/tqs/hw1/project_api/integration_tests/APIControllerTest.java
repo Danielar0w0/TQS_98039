@@ -3,6 +3,8 @@ package pt.ua.deti.tqs.hw1.project_api.integration_tests;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
+import org.hamcrest.core.IsNull;
+import org.hamcrest.text.IsEmptyString;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -107,6 +109,18 @@ class APIControllerTest {
     }
 
     @Test
+    void getInvalidCountryData() throws Exception {
+
+        String name = "Random";
+        when(service.getCountryData(name)).thenReturn(null);
+        mvc.perform(get("/api/countries/" + name).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect((content().string(IsEmptyString.isEmptyOrNullString())));
+
+        verify(service, Mockito.times(1)).getCountryData(name);
+    }
+
+    @Test
     void getRecentCountryData() throws Exception {
 
         String name = "USA";
@@ -130,6 +144,18 @@ class APIControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].Country", is(country.getCountry())))
                 .andExpect(jsonPath("$[0].symbol", is(country.getIso())));
+
+        verify(service, Mockito.times(1)).getRecentCountryData(name);
+    }
+
+    @Test
+    void getInvalidRecentCountryData() throws Exception {
+
+        String name = "Random";
+        when(service.getRecentCountryData(name)).thenReturn(null);
+        mvc.perform(get("/api/recent/" + name).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect((content().string(IsEmptyString.isEmptyOrNullString())));
 
         verify(service, Mockito.times(1)).getRecentCountryData(name);
     }

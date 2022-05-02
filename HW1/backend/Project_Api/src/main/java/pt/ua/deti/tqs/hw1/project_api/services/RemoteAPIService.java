@@ -124,7 +124,7 @@ public class RemoteAPIService {
 
             return covidData;
         }
-        return null;
+        return new CountryData[0];
     }
 
     public RecentData[] getRecentCountryData(String country) {
@@ -153,7 +153,7 @@ public class RemoteAPIService {
 
             return covidData;
         }
-        return null;
+        return new RecentData[0];
     }
 
     public List<News> getAllCovidNews() throws JsonProcessingException {

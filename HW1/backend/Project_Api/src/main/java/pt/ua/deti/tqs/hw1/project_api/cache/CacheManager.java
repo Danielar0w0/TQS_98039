@@ -43,8 +43,7 @@ public class CacheManager {
         return cache.get(cacheKey);
     }
 
-    public void clear(String cacheKey) {
-        // cache.put(cacheKey, null);
+    public void remove(String cacheKey) {
         cache.remove(cacheKey);
     }
 

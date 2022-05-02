@@ -34,6 +34,12 @@ class CacheManagerTest {
         // Overwrite behaviour
         cacheManager.put("country1", country2);
         assertEquals(2, cacheManager.size());
+
+        cacheManager.put(null, country1);
+        assertEquals(2, cacheManager.size());
+
+        cacheManager.put("country1", null);
+        assertEquals(1, cacheManager.size());
     }
 
     @Test
@@ -50,6 +56,24 @@ class CacheManagerTest {
 
         assertEquals(country1, result1);
         assertEquals(country2, result2);
+    }
+
+    @Test
+    void remove() throws JsonProcessingException {
+
+        Country country1 = objectMap.readValue("{\"Country\": \"Canada\", \"ThreeLetterSymbol\": \"CAN\"}", Country.class);
+        Country country2 = objectMap.readValue("{\"Country\": \"Portugal\", \"ThreeLetterSymbol\": \"PT\"}", Country.class);
+
+        cacheManager.put("country1", country1);
+        cacheManager.put("country2", country2);
+
+        assertEquals(2, cacheManager.size());
+
+        cacheManager.remove("country1");
+        assertEquals(1, cacheManager.size());
+
+        cacheManager.remove("random");
+        assertEquals(1, cacheManager.size());
     }
 
     @Test

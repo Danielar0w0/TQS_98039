@@ -19,7 +19,7 @@ import pt.ua.deti.tqs.hw1.project_api.services.RemoteAPIService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class RemoteAPIServiceIsoDependent {
+public class RemoteAPIServiceIsoDependentTest {
 
     @Mock
     private RestTemplate restTemplate;
