@@ -13,8 +13,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Project_Api</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
         <java.version>11</java.version>
+        <sonar.organization>77af6657c6a55df7260</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
