@@ -9,7 +9,7 @@ public class CacheManager {
     private static CacheManager instance;
     private static Object monitor = new Object();
 
-    private static final int TIMETOLIVE = 10;
+    private static final long TIMETOLIVE = 10L;
 
     private Map<String, CacheObject> cache = Collections.synchronizedMap(new HashMap<>());
 
@@ -17,7 +17,7 @@ public class CacheManager {
         Thread cleanerThread = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    Thread.sleep(TIMETOLIVE * 1000);
+                    Thread.sleep(TIMETOLIVE * 1000L);
                     cache.entrySet().removeIf(entry -> entry.getValue().isExpired());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -57,11 +57,9 @@ public class CacheManager {
     }
 
     public static CacheManager getInstance() {
-        if (instance == null) {
-            synchronized (monitor) {
-                if (instance == null) {
-                    instance = new CacheManager();
-                }
+        synchronized (monitor) {
+            if (instance == null) {
+                instance = new CacheManager();
             }
         }
         return instance;

@@ -13,6 +13,7 @@ import pt.ua.deti.tqs.hw1.project_api.cache.CacheManager;
 import pt.ua.deti.tqs.hw1.project_api.cache.CacheObject;
 import pt.ua.deti.tqs.hw1.project_api.models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -158,18 +159,22 @@ public class RemoteAPIService {
     public List<News> getAllCovidNews() throws JsonProcessingException {
 
         logger.info("Obtaining all covid news...");
-        List<News> news;
+        List<News> news = new ArrayList<>();
         CacheObject cache = cacheManager.get("getAllCovidNews");
 
         if (cache != null) {
             news = (List<News>) cache.getContent();
             logger.info("Used Cache");
         } else {
-            JSONObject jsonObject = restTemplate.getForObject("/news/get-coronavirus-news/0", JSONObject.class);
-            String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
-            news = objectMap.readValue(jsonNews, List.class);
-            cacheManager.put("getAllCovidNews", news);
-            logger.info("Saved covid news to Cache");
+            try {
+                JSONObject jsonObject = restTemplate.getForObject("/news/get-coronavirus-news/0", JSONObject.class);
+                String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
+                news = objectMap.readValue(jsonNews, List.class);
+                cacheManager.put("getAllCovidNews", news);
+                logger.info("Saved covid news to Cache");
+            } catch (NullPointerException ex) {
+                logger.warn("NullPointerException!");
+            }
         }
         return news;
     }
@@ -177,18 +182,22 @@ public class RemoteAPIService {
     public List<News> getAllHealthNews() throws JsonProcessingException {
 
         logger.info("Obtaining all health news...");
-        List<News> news;
+        List<News> news = new ArrayList<>();
         CacheObject cache = cacheManager.get("getAllHealthNews");
 
         if (cache != null) {
             news = (List<News>) cache.getContent();
             logger.info("Used Cache");
         } else {
-            JSONObject jsonObject = restTemplate.getForObject("/news/get-health-news/1", JSONObject.class);
-            String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
-            news = objectMap.readValue(jsonNews, List.class);
-            cacheManager.put("getAllHealthNews", news);
-            logger.info("Saved health news to Cache");
+            try {
+                JSONObject jsonObject = restTemplate.getForObject("/news/get-health-news/1", JSONObject.class);
+                String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
+                news = objectMap.readValue(jsonNews, List.class);
+                cacheManager.put("getAllHealthNews", news);
+                logger.info("Saved health news to Cache");
+            } catch (NullPointerException ex) {
+                logger.warn("NullPointerException!");
+            }
         }
         return news;
     }
@@ -196,18 +205,23 @@ public class RemoteAPIService {
     public List<News> getAllVaccineNews() throws JsonProcessingException {
 
         logger.info("Obtaining all vaccine news...");
-        List<News> news;
+        List<News> news = new ArrayList<>();
         CacheObject cache = cacheManager.get("getAllVaccineNews");
 
         if (cache != null) {
             news = (List<News>) cache.getContent();
             logger.info("Used Cache");
         } else {
-            JSONObject jsonObject = restTemplate.getForObject("/news/get-vaccine-news/0", JSONObject.class);
-            String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
-            news = objectMap.readValue(jsonNews, List.class);
-            cacheManager.put("getAllVaccineNews", news);
-            logger.info("Saved vaccines news to Cache");
+            try {
+                JSONObject jsonObject = restTemplate.getForObject("/news/get-vaccine-news/0", JSONObject.class);
+                String jsonNews = objectMap.writeValueAsString(jsonObject.get("news"));
+                news = objectMap.readValue(jsonNews, List.class);
+                cacheManager.put("getAllVaccineNews", news);
+                logger.info("Saved vaccines news to Cache");
+
+            } catch (NullPointerException ex) {
+                logger.warn("NullPointerException!");
+            }
         }
         return news;
     }
