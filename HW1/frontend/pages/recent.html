@@ -44,13 +44,19 @@
             </div>
         </nav>
     </div>
-    <div class="row m-5 justify-content-end d-flex">
+    <div class="row mx-5 justify-content-end d-flex">
+        <div class="col-lg-3 col-md-5 col-sm-5 mx-5 text-end">
+            <span class="text-white">Current Search:</span>
+            <p id="current_search" class="text-white">---</p>
+        </div>
+    </div>
+    <div class="row mx-5 my-2 justify-content-end d-flex">
         <div class="col-lg-3 col-md-5 col-sm-5 mx-1">
             <form class="d-flex" onsubmit="return false;">
                 <input id="search_input" class="form-control me-2 p-2" placeholder="Search" aria-label="Search"
                        onkeypress="searchKeypress(event)" autocomplete="off">
                 <input id="search_day" class="form-control me-2 p-2" placeholder="MM/DD/YYYY" aria-label="Day">
-                <button class="btn" style="background-color: #ffa500" type="button" onclick="search()">Search</button>
+                <button id=search_button" class="btn" style="background-color: #ffa500" type="button" onclick="search()">Search</button>
             </form>
             <div class="rounded shadow mt-2" id="result" onclick="clickResult(event)"></div>
         </div>

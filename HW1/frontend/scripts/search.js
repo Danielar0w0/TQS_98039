@@ -31,10 +31,14 @@ function searchKeypress(e) {
 function search() {
 
     let input = document.getElementById("search_input").value.toLowerCase();
+    if (input !== null && input !== undefined)
+        document.getElementById("current_search").innerText = input.toUpperCase();
 
     let day;
-    if (document.getElementById("search_day") !== null)
+    if (document.getElementById("search_day") !== null) {
         day = document.getElementById("search_day").value;
+        document.getElementById("current_search").innerText = input.toUpperCase() + "-" + day;
+    }
 
     getCountryData(input).then(data => {
         if (data.length > 0) {

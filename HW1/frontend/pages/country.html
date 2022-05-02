@@ -44,17 +44,24 @@
             </div>
         </nav>
     </div>
-    <div class="row m-5 justify-content-end d-flex">
+    <div class="row mx-5 justify-content-end d-flex">
+        <div class="col-lg-3 col-md-5 col-sm-5 mx-5 text-end">
+            <span class="text-white">Current Search:</span>
+            <p id="current_search" class="text-white">---</p>
+        </div>
+    </div>
+    <div class="row mx-5 my-2 justify-content-end d-flex">
         <div class="col-lg-3 col-md-5 col-sm-5 mx-1">
             <form class="d-flex" onsubmit="return false;">
-                <input id="search_input" class="form-control me-2 p-2" placeholder="Search" aria-label="Search" onkeypress="searchKeypress(event)" autocomplete="off">
-                <button class="btn" style="background-color: #ffa500" type="button" onclick="search()">Search</button>
+                <input id="search_input" class="form-control me-2 p-2" placeholder="Search" aria-label="Search"
+                       onkeypress="searchKeypress(event)" autocomplete="off">
+                <button id=search_button" class="btn" style="background-color: #ffa500" type="button" onclick="search()">Search</button>
             </form>
             <div class="rounded shadow mt-2" id="result" onclick="clickResult(event)"></div>
         </div>
-       <div class="col-lg-7 col-md-6 col-sm-6 align-items-center d-flex">
-           <h6 class="text-white" id="warning" style="display: none">No results!</h6>
-       </div>
+        <div class="col-lg-7 col-md-6 col-sm-6 align-items-center d-flex">
+            <h6 class="text-white" id="warning" style="display: none">No results!</h6>
+        </div>
     </div>
     <div class="row m-5 justify-content-center d-flex">
         <div class="col-lg-3 col-md-5 col-sm-5 mx-1">
@@ -64,32 +71,50 @@
                     <p id="loading" class="card-text">Loading...</p>
 
                     <div class="row mb-4" id="world_data">
-                        <h5><img class="mx-2" src="/images/arrow-right-square-fill.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Country</span> <span id="country">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square-fill.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Country</span> <span id="country">---</span>
+                        </h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square-fill.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Continent</span> <span id="continent">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square-fill.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Continent</span> <span
+                                    id="continent">---</span></h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Total Cases</span> <span id="total_cases">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Total Cases</span> <span id="total_cases">---</span>
+                        </h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">New Cases</span> <span id="new_cases">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">New Cases</span> <span
+                                    id="new_cases">---</span></h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Active Cases</span> <span id="active_cases">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Active Cases</span> <span id="active_cases">---</span>
+                        </h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">New Recovered</span> <span id="new_recovered">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">New Recovered</span> <span
+                                    id="new_recovered">---</span></h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Total Recovered</span> <span id="total_recovered">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Total Recovered</span> <span
+                                    id="total_recovered">---</span></h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Total Deaths</span> <span id="total_deaths">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Total Deaths</span> <span id="total_deaths">---</span>
+                        </h5>
 
-                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28" height="28">
-                            <span style="color: #ffa500; font-weight: bold">Case Fatality Rate</span> <span id="case_fatality">---</span></h5>
+                        <h5><img class="mx-2" src="/images/arrow-right-square.svg" alt="Bootstrap" width="28"
+                                 height="28">
+                            <span style="color: #ffa500; font-weight: bold">Case Fatality Rate</span> <span
+                                    id="case_fatality">---</span></h5>
                     </div>
                 </div>
             </div>
