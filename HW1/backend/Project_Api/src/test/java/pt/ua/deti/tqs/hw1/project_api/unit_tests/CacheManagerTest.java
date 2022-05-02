@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ua.deti.tqs.hw1.project_api.cache.CacheManager;
+import pt.ua.deti.tqs.hw1.project_api.cache.CacheObject;
 import pt.ua.deti.tqs.hw1.project_api.models.Country;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -95,5 +98,23 @@ class CacheManagerTest {
     void getInstance() {
         CacheManager newCacheManager = CacheManager.getInstance();
         assertEquals(newCacheManager, cacheManager);
+    }
+
+    @Test
+    void getCache() throws JsonProcessingException {
+
+        Map<String, CacheObject> result = cacheManager.getCache();
+        assertEquals(0, result.size());
+
+        Country country1 = objectMap.readValue("{\"Country\": \"Canada\", \"ThreeLetterSymbol\": \"CAN\"}", Country.class);
+        Country country2 = objectMap.readValue("{\"Country\": \"Portugal\", \"ThreeLetterSymbol\": \"PT\"}", Country.class);
+
+        cacheManager.put("country1", country1);
+        cacheManager.put("country2", country2);
+
+        result = cacheManager.getCache();
+
+        assertEquals(result.get("country1").getContent(), country1);
+        assertEquals(result.get("country2").getContent(), country2);
     }
 }

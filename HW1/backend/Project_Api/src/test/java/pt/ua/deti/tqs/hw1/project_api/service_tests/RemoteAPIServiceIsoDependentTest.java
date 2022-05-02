@@ -17,7 +17,6 @@ import pt.ua.deti.tqs.hw1.project_api.models.RecentData;
 import pt.ua.deti.tqs.hw1.project_api.services.RemoteAPIService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class RemoteAPIServiceIsoDependentTest {

@@ -9,7 +9,7 @@ public class CacheManager {
     private static CacheManager instance;
     private static Object monitor = new Object();
 
-    private static final long TIMETOLIVE = 10L;
+    private static final long TIMETOLIVE = 100L;
 
     private Map<String, CacheObject> cache = Collections.synchronizedMap(new HashMap<>());
 
@@ -62,5 +62,9 @@ public class CacheManager {
             }
         }
         return instance;
+    }
+
+    public Map<String, CacheObject> getCache() {
+        return cache;
     }
 }

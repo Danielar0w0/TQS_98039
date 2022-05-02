@@ -15,6 +15,7 @@ import pt.ua.deti.tqs.hw1.project_api.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RemoteAPIService {
@@ -235,6 +236,10 @@ public class RemoteAPIService {
             logger.info("Saved list of countries to Cache");
         }
         return countries;
+    }
+
+    public Map<String, CacheObject> getCache() {
+        return this.cacheManager.getCache();
     }
 
     public void clearCache() {

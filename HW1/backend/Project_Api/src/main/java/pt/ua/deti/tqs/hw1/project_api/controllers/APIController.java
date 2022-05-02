@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import pt.ua.deti.tqs.hw1.project_api.cache.CacheObject;
 import pt.ua.deti.tqs.hw1.project_api.models.*;
 import pt.ua.deti.tqs.hw1.project_api.services.RemoteAPIService;
 
 import java.util.List;
+import java.util.Map;
 
 @PropertySource("classpath:application.properties")
 @RestController
@@ -94,5 +96,12 @@ public class APIController {
         logger.info("Called getCountriesList()");
         Country[] countries = service.getCountriesList();
         return ResponseEntity.ok().body(countries);
+    }
+
+    @GetMapping("/cache")
+    public ResponseEntity<Map<String, CacheObject>> getCache() {
+        logger.info("Called getCache()");
+        Map<String, CacheObject> cache = service.getCache();
+        return ResponseEntity.ok().body(cache);
     }
 }

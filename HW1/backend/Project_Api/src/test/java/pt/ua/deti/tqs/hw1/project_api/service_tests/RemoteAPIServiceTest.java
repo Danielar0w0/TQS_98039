@@ -188,5 +188,4 @@ class RemoteAPIServiceTest {
         // Cache enabled!
         Mockito.verify(restTemplate, Mockito.times(1)).getForEntity("/npm-covid-data/countries-name-ordered", Country[].class);
     }
-
 }
