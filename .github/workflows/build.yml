@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'HW1/**'
   pull_request:
