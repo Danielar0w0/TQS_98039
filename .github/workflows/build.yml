@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '!HW1/backend/Project_Api/src/test/java/pt/ua/deti/tqs/hw1/project_api/functional_tests/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
