@@ -1,4 +1,4 @@
-package io.cucumber;
+package pt.ua.deti.tqs.lab5_3.demo;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -9,8 +9,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("io.cucumber")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "io/cucumber")
-public class CucumberTest {
-
+@SelectClasspathResource("pt.ua.deti.tqs.lab5_3.demo")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "pt/ua/deti/tqs/lab5_3/demo")
+public class DemoTest {
 }
